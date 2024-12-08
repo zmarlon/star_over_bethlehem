@@ -1,0 +1,8 @@
+target/
+bin/
+.idea/
+Cargo.lock
+gen/
+
+libdxcompiler.dylib
+.DS_Store
