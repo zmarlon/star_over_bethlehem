@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 ash = { version = "0.38.0+1.3.281", optional = true }
 hassle-rs = "0.11.0"
-metal_irconverter = { path = "../metal_irconverter"}
+metal_irconverter = { git = "https://github.com/ProjectKML/metal_irconverter_rs"}
 objc2 = { version = "0.5.2", features = [], optional = true }
 objc2-metal = { version = "0.2.2", features = [
     "MTLAccelerationStructureTypes",
