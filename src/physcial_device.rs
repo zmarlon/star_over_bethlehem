@@ -1,4 +1,5 @@
 use crate::metal::PhysicalDeviceMetal;
+use std::hint;
 
 #[derive(Clone)]
 pub enum PhysicalDevice {
@@ -11,6 +12,14 @@ impl PhysicalDevice {
         match self {
             #[cfg(feature = "metal")]
             PhysicalDevice::Metal(physical_device) => physical_device.name(),
+        }
+    }
+
+    #[inline]
+    pub unsafe fn as_metal(&self) -> &PhysicalDeviceMetal {
+        match self {
+            PhysicalDevice::Metal(device) => device,
+            _ => unsafe { hint::unreachable_unchecked() },
         }
     }
 }

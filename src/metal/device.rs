@@ -1,6 +1,6 @@
+use crate::metal::ShaderModuleMetal;
 use crate::{DeviceCreateDesc, Error, PhysicalDevice, ShaderModule, ShaderModuleCreateDesc};
 use std::sync::Arc;
-use crate::metal::ShaderModuleMetal;
 
 struct Inner {
     physical_device: PhysicalDevice,
@@ -17,6 +17,10 @@ impl DeviceMetal {
     }
 
     pub fn create_shader(&self, desc: &ShaderModuleCreateDesc) -> Result<ShaderModuleMetal, Error> {
-        ShaderModuleMetal::new(desc)
+        ShaderModuleMetal::new(self, desc)
+    }
+
+    pub fn physical_device(&self) -> &PhysicalDevice {
+        &self.0.physical_device
     }
 }

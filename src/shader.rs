@@ -1,9 +1,9 @@
-use std::borrow::Cow;
 use crate::metal::ShaderModuleMetal;
+use std::borrow::Cow;
 
 pub enum ShaderModule {
     #[cfg(feature = "metal")]
-    Metal(ShaderModuleMetal)
+    Metal(ShaderModuleMetal),
 }
 
 pub struct ShaderModuleCreateDesc {

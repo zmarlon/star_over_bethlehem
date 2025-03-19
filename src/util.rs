@@ -1,6 +1,6 @@
-use std::ffi::NulError;
 use crate::metal::ErrorMetal;
 use crate::vulkan::ErrorVulkan;
+use std::ffi::NulError;
 use thiserror::Error;
 
 #[derive(Debug, Error)]
@@ -14,5 +14,5 @@ pub enum Error {
     #[error("Hassle rs error: {0}")]
     HassleRs(#[from] hassle_rs::HassleError),
     #[error("Nul error: {0}")]
-    NulError(#[from] NulError)
+    NulError(#[from] NulError),
 }
