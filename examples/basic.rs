@@ -20,6 +20,7 @@ pub fn main() {
         .unwrap();
 
     let mesh_shader_source = fs::read_to_string("examples/mesh_shader.hlsl").unwrap();
+    let fragment_shader_source = fs::read_to_string("examples/fragment_shader.hlsl").unwrap();
 
     let mesh_shader = device
         .create_shader(&ShaderModuleCreateDesc {
@@ -30,6 +31,26 @@ pub fn main() {
             },
             kind: ShaderKind::Mesh,
             entry_point: "ms_main".into(),
+        })
+        .unwrap();
+
+    let fragment_shader = device
+        .create_shader(&ShaderModuleCreateDesc {
+            name: "Fragment shader example".into(),
+            source: ShaderSource::Hlsl {
+                source: fragment_shader_source.into(),
+                defines: vec![],
+            },
+            kind: ShaderKind::Fragment,
+            entry_point: "fs_main".into(),
+        })
+        .unwrap();
+
+    println!("{:?}", mesh_shader.kind());
+
+    let graphics_pipeline = device
+        .create_graphics_pipeline(&GraphicsPipelineDesc {
+            shader_stages: vec![mesh_shader, fragment_shader],
         })
         .unwrap();
 }

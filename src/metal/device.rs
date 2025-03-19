@@ -1,5 +1,8 @@
-use crate::metal::ShaderModuleMetal;
-use crate::{DeviceCreateDesc, Error, PhysicalDevice, ShaderModule, ShaderModuleCreateDesc};
+use crate::metal::{GraphicsPipelineMetal, ShaderModuleMetal};
+use crate::{
+    DeviceCreateDesc, Error, GraphicsPipelineDesc, PhysicalDevice, ShaderModule,
+    ShaderModuleCreateDesc,
+};
 use std::sync::Arc;
 
 struct Inner {
@@ -18,6 +21,13 @@ impl DeviceMetal {
 
     pub fn create_shader(&self, desc: &ShaderModuleCreateDesc) -> Result<ShaderModuleMetal, Error> {
         ShaderModuleMetal::new(self, desc)
+    }
+
+    pub fn create_graphics_pipeline(
+        &self,
+        desc: &GraphicsPipelineDesc,
+    ) -> Result<GraphicsPipelineMetal, Error> {
+        Ok(GraphicsPipelineMetal::new(self, desc)?)
     }
 
     pub fn physical_device(&self) -> &PhysicalDevice {

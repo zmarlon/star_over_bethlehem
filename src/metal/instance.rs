@@ -16,7 +16,7 @@ pub struct InstanceMetal(Arc<Inner>);
 impl InstanceMetal {
     pub fn new(instance_desc: &InstanceCreateDesc) -> Result<Self, Error> {
         let devices = {
-            let ptr = unsafe { MTLCopyAllDevices().as_ptr() };
+            let ptr = Retained::into_raw(MTLCopyAllDevices());
             unsafe { Retained::retain(ptr) }.ok_or(Error::MetalBackend(ErrorMetal::Custom(
                 String::from("Failed to get metal devices"),
             )))

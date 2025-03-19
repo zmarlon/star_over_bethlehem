@@ -154,15 +154,17 @@ impl ShaderModuleMetal {
                     )?;
 
                     let entry_point = NSString::from_str(&desc.entry_point);
-                    let function = library
-                        .newFunctionWithName(mem::transmute(entry_point.deref()))
-                        .ok_or(Error::MetalBackend(ErrorMetal::Custom(
-                            "Failed to create function".into(),
-                        )))?;
+                    let function = library.newFunctionWithName(entry_point.deref()).ok_or(
+                        Error::MetalBackend(ErrorMetal::Custom("Failed to create function".into())),
+                    )?;
 
                     Ok(Self { function })
                 }
             }
         }
+    }
+
+    pub fn function(&self) -> &Retained<ProtocolObject<dyn MTLFunction>> {
+        &self.function
     }
 }
