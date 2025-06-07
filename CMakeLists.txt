@@ -49,3 +49,6 @@ elseif(APPLE)
 elseif(UNIX)
     target_compile_definitions(star_over_bethlehem PRIVATE SOB_VULKAN_SUPPORTED)
 endif()
+
+add_executable(star_over_bethlehem_example ${CMAKE_SOURCE_DIR}/example/main.cpp)
+target_link_libraries(star_over_bethlehem_example star_over_bethlehem)
