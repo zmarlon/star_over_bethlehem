@@ -18,8 +18,10 @@ namespace sob {
         for (NS::UInteger i = 0; i < devices->count(); i++) {
             const auto device = reinterpret_cast<MTL::Device*>(devices->object(i));
             if (!supports_features(device)) {
-                _adapters.push_back(new MetalAdapter(device));
+                continue;
             }
+
+            _adapters.push_back(new MetalAdapter(device));
         }
 
         return RHI_SUCCESS;
