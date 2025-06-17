@@ -2,6 +2,7 @@
 
 #include "base/instance.hpp"
 #include "base/adapter.hpp"
+#include "base/device.hpp"
 
 extern "C" {
     RhiResult sob_instance_create(const RhiInstanceDesc* desc, RhiInstance* instance) {
@@ -18,8 +19,14 @@ extern "C" {
         base_instance->enumerate_adapters(num_adapters, adapters);
     }
 
-    RhiResult sob_instance_create_device(RhiInstance instance, RhiDeviceDesc* desc) {
-        return RHI_SUCCESS;
+    RhiResult sob_instance_create_device(RhiInstance instance, RhiDeviceDesc* desc, RhiDevice* device) {
+        auto* base_instance = sob::Instance::from_handle(instance);
+        return base_instance->create_device(desc, device);
+    }
+
+    void sob_destroy_device(RhiDevice device) {
+        const auto* base_device = sob::Device::from_handle(device);
+        delete base_device;
     }
 
     RhiResult sob_adapter_get_properties(RhiAdapter adapter, RhiAdapterDesc* desc) {

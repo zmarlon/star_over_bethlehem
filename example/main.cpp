@@ -9,6 +9,7 @@ int main() {
     RhiInstance instance;
     auto result = sob_instance_create(&instance_desc, &instance);
     if (result != RHI_SUCCESS) {
+        std::cout << "Failed to create instance" << std::endl;
         return 1;
     }
 
@@ -24,10 +25,24 @@ int main() {
     RhiAdapterDesc adapter_desc;
     result = sob_adapter_get_properties(adapter, &adapter_desc);
     if (result != RHI_SUCCESS) {
+        std::cout << "Failed to get properties" << std::endl;
         return 1;
     }
 
     std::cout << adapter_desc.name.data << std::endl;
+
+    RhiDeviceDesc device_desc;
+    device_desc.adapter = adapter;
+
+    RhiDevice device;
+
+    result = sob_instance_create_device(instance, &device_desc, &device);
+    if (result != RHI_SUCCESS) {
+        std::cout << "Failed to create device" << std::endl;
+        return 1;
+    }
+
+    sob_destroy_device(device);
 
     sob_instance_destroy(instance);
 

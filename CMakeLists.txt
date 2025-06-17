@@ -34,7 +34,7 @@ add_library(star_over_bethlehem STATIC ${CORE_SOURCE_FILES})
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 if(APPLE)
-    include_directories(${CMAKE_SOURCE_DIR}/dependencies/apple)
+    include_directories(${CMAKE_SOURCE_DIR}/dependencies/include/apple)
 endif()
 
 if(SOB_RUNTIME_SHADER_COMPILATION)

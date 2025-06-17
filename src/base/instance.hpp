@@ -13,6 +13,8 @@ namespace sob {
         void enumerate_adapters(uint32_t* num_adapters, RhiAdapter* adapters) const;
 
         void clean_adapters();
+
+        virtual RhiResult create_device(RhiDeviceDesc* desc, RhiDevice* device) = 0;
     protected:
         std::vector<Adapter*> _adapters;
     };

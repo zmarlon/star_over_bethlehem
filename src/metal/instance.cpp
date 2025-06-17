@@ -7,10 +7,11 @@
 
 #include "instance.hpp"
 #include "adapter.hpp"
+#include "device.hpp"
 
 namespace sob {
     static bool supports_features(MTL::Device* device) {
-        return device->supportsRaytracing() && device->supportsFamily(MTL::GPUFamilyApple7);
+        return device->supportsRaytracing() && device->supportsFamily(MTL::GPUFamilyApple7) && device->supportsFamily(MTL::GPUFamilyMetal4);
     }
 
     RhiResult MetalInstance::init(const RhiInstanceDesc* desc) {
@@ -23,6 +24,14 @@ namespace sob {
 
             _adapters.push_back(new MetalAdapter(device));
         }
+
+        return RHI_SUCCESS;
+    }
+
+    RhiResult MetalInstance::create_device(RhiDeviceDesc* desc, RhiDevice* device) {
+        auto* adapter = MetalAdapter::from_handle(desc->adapter);
+        auto* metal_device = new MetalDevice(reinterpret_cast<MetalAdapter*>(adapter));
+        *device = metal_device->into_handle();
 
         return RHI_SUCCESS;
     }

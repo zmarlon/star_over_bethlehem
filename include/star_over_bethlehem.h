@@ -80,7 +80,8 @@ typedef struct RhiShaderDesc {
 RhiResult sob_instance_create(const RhiInstanceDesc* desc, RhiInstance* instance);
 void sob_instance_destroy(RhiInstance instance);
 void sob_instance_enumerate_adapters(RhiInstance instance, uint32_t* num_adapters, RhiAdapter* adapters);
-RhiResult sob_instance_create_device(RhiInstance instance, RhiDeviceDesc* desc);
+RhiResult sob_instance_create_device(RhiInstance instance, RhiDeviceDesc* desc, RhiDevice* device);
+void sob_destroy_device(RhiDevice device);
 
 RhiResult sob_adapter_get_properties(RhiAdapter adapter, RhiAdapterProperties* properties);
 
