@@ -19,7 +19,7 @@ extern "C" {
         base_instance->enumerate_adapters(num_adapters, adapters);
     }
 
-    RhiResult sob_instance_create_device(RhiInstance instance, RhiDeviceDesc* desc, RhiDevice* device) {
+    RhiResult sob_instance_create_device(RhiInstance instance, const RhiDeviceDesc* desc, RhiDevice* device) {
         auto* base_instance = sob::Instance::from_handle(instance);
         return base_instance->create_device(desc, device);
     }
@@ -34,7 +34,7 @@ extern "C" {
         return base_adapter->adapter_get_properties(desc);
     }
 
-    RhiResult sob_device_create_shader(RhiDevice device, RhiShader* shader) {
+    RhiResult sob_device_create_shader(RhiDevice device, const RhiShaderDesc* desc, RhiShader* shader) {
         return RHI_SUCCESS;
     }
 }

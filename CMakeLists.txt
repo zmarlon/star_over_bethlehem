@@ -33,6 +33,8 @@ add_library(star_over_bethlehem STATIC ${CORE_SOURCE_FILES})
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
+include_directories(${CMAKE_SOURCE_DIR}/dependencies/include/base)
+
 if(APPLE)
     include_directories(${CMAKE_SOURCE_DIR}/dependencies/include/apple)
 endif()
@@ -45,7 +47,7 @@ if(WIN32)
     target_compile_definitions(star_over_bethlehem PRIVATE SOB_D3D12_SUPPORTED SOB_VULKAN_SUPPORTED)
 elseif(APPLE)
     target_compile_definitions(star_over_bethlehem PRIVATE SOB_METAL_SUPPORTED SOB_VULKAN_SUPPORTED)
-    target_link_libraries(star_over_bethlehem "-framework Foundation" "-framework Metal" "-framework QuartzCore")
+    target_link_libraries(star_over_bethlehem "-framework Foundation" "-framework Metal" "-framework QuartzCore" "/usr/local/lib/libdxcompiler.dylib")
 elseif(UNIX)
     target_compile_definitions(star_over_bethlehem PRIVATE SOB_VULKAN_SUPPORTED)
 endif()

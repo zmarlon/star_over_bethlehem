@@ -6,7 +6,7 @@
 namespace sob {
     class Adapter : public Object<Adapter, RhiAdapter> {
     public:
-        virtual RhiResult adapter_get_properties(RhiAdapterProperties* properties) const;
+        [[nodiscard]] virtual RhiResult adapter_get_properties(RhiAdapterProperties* properties) const;
     protected:
         std::string _name;
     };

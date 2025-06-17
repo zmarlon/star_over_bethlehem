@@ -28,7 +28,11 @@ typedef struct RhiArrayView {
 
 typedef enum {
     RHI_SUCCESS = 0,
-    RHI_BACKEND_NOT_SUPPORTED = 1
+    RHI_BACKEND_NOT_SUPPORTED = 1,
+    RHI_SHADER_COMPILER_ERROR,
+    RHI_SHADER_COMPILATION_ERROR,
+    RHI_IR_COMPILER_CREATION_ERROR,
+    RHI_IR_COMPILER_COMPILATION_ERROR
 } RhiResult;
 
 typedef enum {
@@ -60,12 +64,19 @@ typedef enum RhiShaderStage {
 
 typedef enum RhiShaderSourceType {
     RHI_SHADER_SOURCE_TYPE_HLSL,
+    RHI_SHADER_SOURCE_TYPE_SLANG,
     RHI_SHADER_SOURCE_TYPE_BINARY
 } RhiShaderSourceType;
 
+typedef struct RhiShaderSourceHlsl {
+    RhiStringView source;
+    RhiStringView* defines;
+    uint32_t num_defines;
+} RhiShaderSourceHlsl;
+
 typedef union RhiShaderSource {
     struct {
-        RhiStringView source;
+        RhiShaderSourceHlsl hlsl;
         RhiArrayView binary;
     };
     RhiShaderSourceType type;
@@ -75,17 +86,18 @@ typedef struct RhiShaderDesc {
     RhiStringView name;
     RhiShaderSource source;
     RhiShaderStage shader_stage;
+    RhiStringView entry_point;
 } RhiShaderDesc;
 
 RhiResult sob_instance_create(const RhiInstanceDesc* desc, RhiInstance* instance);
 void sob_instance_destroy(RhiInstance instance);
 void sob_instance_enumerate_adapters(RhiInstance instance, uint32_t* num_adapters, RhiAdapter* adapters);
-RhiResult sob_instance_create_device(RhiInstance instance, RhiDeviceDesc* desc, RhiDevice* device);
+RhiResult sob_instance_create_device(RhiInstance instance, const RhiDeviceDesc* desc, RhiDevice* device);
 void sob_destroy_device(RhiDevice device);
 
 RhiResult sob_adapter_get_properties(RhiAdapter adapter, RhiAdapterProperties* properties);
 
-RhiResult sob_device_create_shader(RhiDevice device, RhiShader* shader);
+RhiResult sob_device_create_shader(RhiDevice device, const RhiShaderDesc* desc, RhiShader* shader);
 
 #ifdef __cplusplus
 }

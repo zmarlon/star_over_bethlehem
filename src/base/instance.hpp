@@ -9,12 +9,12 @@ namespace sob {
     public:
         virtual ~Instance();
 
-        static RhiResult init(const RhiInstanceDesc* desc, RhiInstance* instance);
+        [[nodiscard]] static RhiResult init(const RhiInstanceDesc* desc, RhiInstance* instance);
         void enumerate_adapters(uint32_t* num_adapters, RhiAdapter* adapters) const;
 
         void clean_adapters();
 
-        virtual RhiResult create_device(RhiDeviceDesc* desc, RhiDevice* device) = 0;
+        [[nodiscard]] virtual RhiResult create_device(const RhiDeviceDesc* desc, RhiDevice* device) = 0;
     protected:
         std::vector<Adapter*> _adapters;
     };

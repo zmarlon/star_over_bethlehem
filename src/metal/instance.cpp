@@ -10,7 +10,7 @@
 #include "device.hpp"
 
 namespace sob {
-    static bool supports_features(MTL::Device* device) {
+    [[nodiscard]] static bool supports_features(MTL::Device* device) {
         return device->supportsRaytracing() && device->supportsFamily(MTL::GPUFamilyApple7) && device->supportsFamily(MTL::GPUFamilyMetal4);
     }
 
@@ -28,7 +28,7 @@ namespace sob {
         return RHI_SUCCESS;
     }
 
-    RhiResult MetalInstance::create_device(RhiDeviceDesc* desc, RhiDevice* device) {
+    RhiResult MetalInstance::create_device(const RhiDeviceDesc* desc, RhiDevice* device) {
         auto* adapter = MetalAdapter::from_handle(desc->adapter);
         auto* metal_device = new MetalDevice(reinterpret_cast<MetalAdapter*>(adapter));
         *device = metal_device->into_handle();
